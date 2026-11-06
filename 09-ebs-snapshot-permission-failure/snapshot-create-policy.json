@@ -1,0 +1,34 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowSnapshotOfLabVolumeOnly",
+      "Effect": "Allow",
+      "Action": "ec2:CreateSnapshot",
+      "Resource": ""
+    },
+    {
+      "Sid": "AllowCreationOfTaggedSnapshots",
+      "Effect": "Allow",
+      "Action": "ec2:CreateSnapshot",
+      "Resource": "",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestTag/Project": ""
+        }
+      }
+    },
+    {
+      "Sid": "AllowTagsOnlyDuringSnapshotCreation",
+      "Effect": "Allow",
+      "Action": "ec2:CreateTags",
+      "Resource": "",
+      "Condition": {
+        "StringEquals": {
+          "ec2:CreateAction": "CreateSnapshot",
+          "aws:RequestTag/Project": ""
+        }
+      }
+    }
+  ]
+}
